@@ -1,7 +1,8 @@
-import { ConflictException } from '@nestjs/common'
+import { ConflictException, Injectable } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { User } from './user.model'
 
+@Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
@@ -16,7 +17,7 @@ export class UserService {
       },
     })
 
-    if (!existing) {
+    if (existing) {
       throw new ConflictException('Username already exists')
     }
 

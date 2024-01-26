@@ -4,7 +4,7 @@ import { AuthService } from './auth.service'
 import { LoginDto } from './dto/login-user.dto'
 import { RegisterUserDto } from './dto/register-user.dto'
 
-@Controller('/auth')
+@Controller('/api/v1/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -26,6 +26,7 @@ export class AuthController {
       return response.status(500).json({
         status: 'Ok!',
         message: 'Internal Server Error',
+        err,
       })
     }
   }
@@ -37,7 +38,7 @@ export class AuthController {
     @Body() registerDto: RegisterUserDto,
   ): Promise<any> {
     try {
-      const result = await this.authService.login(registerDto)
+      const result = await this.authService.register(registerDto)
 
       return response.status(200).json({
         status: 'Ok!',
@@ -48,6 +49,7 @@ export class AuthController {
       return response.status(500).json({
         status: 'Ok!',
         message: 'Internal Server Error',
+        err,
       })
     }
   }
